@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import * as React from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function getTitle(title) {
+  return title;
 }
 
-export default App
+const list = [
+  {
+    title: "React",
+    author: "Jordan Walke",
+    num_comment: 3,
+    points: 4,
+    objectId: 0,
+  },
+  {
+    title: "Chocolate",
+    author: "Willy Wonka, Charlie Boy",
+    num_comment: 2,
+    points: 5,
+    objectId: 1,
+  }
+]
+
+function App() {
+
+  return (
+    <div>
+      <h1>
+        Hello {getTitle("React")}
+      </h1>
+      
+      <label htmlFor="search">Search: </label>
+      <input type="text" id="search" />
+    </div>
+  );
+
+}
+
+export default App;
