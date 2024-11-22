@@ -21,6 +21,7 @@ const list = [
   }
 ]
 
+{/* creating App component */}
 function App() {
 
   return (
@@ -29,11 +30,12 @@ function App() {
       <h1>
         My Hacker Stories
       </h1>
-      
+
+      {/* creating an instance of Search component */}
       <Search />
 
       <hr />
-
+      {/* creating an instance of List component */}
       <List />
 
     </div>
@@ -41,6 +43,7 @@ function App() {
 
 }
 
+{/* creating List component */}
 function List() {
 
   return (
@@ -71,6 +74,7 @@ function List() {
   )
 }
 
+{/* creating Search component */}
 function Search() {
 
   return (
