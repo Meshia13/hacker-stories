@@ -22,7 +22,8 @@ const list = [
 ]
 
 {/* creating App component */}
-function App() {
+// arrow function expression
+const App = () => {
 
   return (
     <div>
@@ -44,7 +45,7 @@ function App() {
 }
 
 {/* creating List component */}
-function List() {
+const List = () => {
 
   return (
 
@@ -52,6 +53,7 @@ function List() {
       
       <ul>
       
+      {/* arrow function expression refractoring would look like "list.map((item) {...})" */}
         {list.map(function (item) {
           return ( 
 
@@ -75,13 +77,23 @@ function List() {
 }
 
 {/* creating Search component */}
-function Search() {
+const Search = () => {
 
-  return (
-    <>
+  // Event Handler
+  const handleChange = (event) => {
+    console.log(event);
+  }
+  
 
-    <label htmlFor="search">Search: </label>
-    <input type="text" id="search" />
+    return (
+      <>
+
+    <form >
+      <label htmlFor="search">Search: </label>
+      <input type="text" id="search" onChange={handleChange}/>
+      {/* clears the input field */}
+      <input type='reset'/>
+    </form>
 
     </>
   )
