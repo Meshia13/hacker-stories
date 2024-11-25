@@ -25,13 +25,17 @@ const App = () => {
   ]
 
   // [stateful variable, setter function]
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState(
+    localStorage.getItem('search') || 'React'
+  );
 
   //  A callback handler gets  introduced as event handler (A)
   const handleSearch =(event)=> {
     // and calls back to the place it was introduced (D)
     // pass the state  updater function (setter function) to the Search component as callback handler 
     setSearchTerm(event.target.value)
+    // use the local storage to store the searchTerm accompanied by an identifier whenever a user types into the HTML input field
+    localStorage.setItem('search', event.target.value);
 
   }
 
@@ -122,6 +126,7 @@ const Search = ({search, onSearch}) => {
           a user types into the input field.  */}
       <input type="text" 
       id="search" 
+      // is the the stored value
       value={search}
       onChange={onSearch}/>
       <input type='reset'/>
