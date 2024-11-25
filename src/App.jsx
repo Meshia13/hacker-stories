@@ -1,24 +1,5 @@
 import * as React from 'react';
 
-// const list = [
-//   {
-//     title: "React",
-//     url: 'https://reactjs.org/',
-//     author: "Jordan Walke",
-//     num_comment: 3,
-//     points: 4,
-//     objectId: 0,
-//   },
-//   {
-//     title: "Chocolate",
-//     url: 'https://redux.js.org/',
-//     author: "Willy Wonka, Charlie Boy",
-//     num_comment: 2,
-//     points: 5,
-//     objectId: 1,
-//   }
-// ]
-
 
 {/* creating App component */}
 // arrow function expression
@@ -43,12 +24,22 @@ const App = () => {
     }
   ]
 
+  // [stateful variable, setter function]
+  const [searchTerm, setSearchTerm] = React.useState("");
+
   //  A callback handler gets  introduced as event handler (A)
   const handleSearch =(event)=> {
     // and calls back to the place it was introduced (D)
-    console.log(event.target.value)
+    // pass the state  updater function (setter function) to the Search component as callback handler 
+    setSearchTerm(event.target.value)
 
   }
+
+  const searchedStories = stories.filter(function (story) {
+    return story.title.toLowerCase().includes(searchTerm.toLowerCase());
+    
+  });
+  
 
   return (
     <div>
@@ -60,10 +51,12 @@ const App = () => {
       {/* handler is passed as function in props to another component (B) */}
       <Search onSearch={handleSearch} />
 
+     
+
       <hr />
       {/* creating an instance of List component 
-        passing stories in the List component */}
-      <List list ={stories}/>
+       passing stories in the List component */}
+      <List list ={searchedStories}/>
       
 
     </div>
@@ -73,7 +66,7 @@ const App = () => {
 
 {/* creating List component
    retrieve the list from the List component’s function */}
-const List = (props) => {
+const List = ({list}) => {
 
   return (
 
@@ -81,15 +74,15 @@ const List = (props) => {
       
       <ul>
       
-      {/* arrow function expression refractoring would look like "list.map((item) {...})"
-       retrieve the list from the List component’s function */}
-        {props.list.map(function (item) {
+   
+        {list.map( (item) =>{
 
           return (
 
             <Item key={item.objectId} item={item} />
           )
         })}
+
       </ul>
 
   </div>
@@ -98,18 +91,18 @@ const List = (props) => {
 }
 
 // extract an Item component from the List component and pass each item in the map() method’s callback function to this new component. 
-const Item = (props) => {
+const Item = ({item}) => {
 
   return ( 
 
     <li >
 
       <span>
-        <a href={props.item.url}>{props.item.title}</a>
+        <a href={item.url}>{item.title}</a>
       </span>
-      <span>{props.item.author}</span>
-      <span>{props.item.num_comment}</span>
-      <span>{props.item.points}</span>
+      <span>{item.author}</span>
+      <span>{item.num_comment}</span>
+      <span>{item.points}</span>
       
     </li>
   )
@@ -117,39 +110,27 @@ const Item = (props) => {
 }
 
 {/* creating Search component */}
-const Search = (props) => {
+const Search = ({search, onSearch}) => {
 
-  const [searchTerm, setSearchTerm] = React.useState("");
-
-  // Event Handler
-  const handleChange = (event) => {
-    // Re-renders the component as the state changes
-    setSearchTerm(event.target.value);
-
-     // is executed there as callback handler (C)
-    props.onSearch(event);
-  }
   
-  
-    return (
-      <>
+  return (
+    <>
 
     <form >
       <label htmlFor="search">Search: </label>
-      <input type="text" id="search" onChange={handleChange}/>
-      {/* clears the input field */}
+      {/* pass the state  updater function to the Search component as callback handler and use it to update the state when
+          a user types into the input field.  */}
+      <input type="text" 
+      id="search" 
+      value={search}
+      onChange={onSearch}/>
       <input type='reset'/>
+    
     </form>
-
-    <p>
-      {searchTerm}
-    </p>
+    
 
     </>
   )
   
 }
-
-
-
 export default App;
